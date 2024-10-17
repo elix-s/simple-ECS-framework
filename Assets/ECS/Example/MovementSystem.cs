@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 public class MovementSystem : ECSSystem
@@ -11,9 +10,8 @@ public class MovementSystem : ECSSystem
     public override void Update()
     {
         var entities = ECSManager.Instance.GetEntities();
-        var movingEntities = FilterEntities<PositionComponent>(entities);
-
-        Debug.Log( movingEntities.Count());
+        var movingEntities = FilterEntities<PositionComponent>(entities).Exec<ScaleComponent>().GetEntities();
+        
         foreach (var entity in movingEntities)
         {
             var position = entity.Get<PositionComponent>();

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public abstract class ECSSystem
 {
@@ -6,18 +7,8 @@ public abstract class ECSSystem
     public abstract void Update();
     public abstract void Destroy();
     
-    public List<Entity> FilterEntities<T>(IEnumerable<Entity> entities) where T : Component
+    public FilteredEntityCollection FilterEntities<TInclude>(IEnumerable<Entity> entities) where TInclude : Component
     {
-        List<Entity> filteredEntities = new List<Entity>();
-
-        foreach (var entity in entities)
-        {
-            if (entity.Has<T>())
-            {
-                filteredEntities.Add(entity);
-            }
-        }
-
-        return filteredEntities;
+        return new FilteredEntityCollection(entities.Where(entity => entity.Has<TInclude>()));
     }
 }

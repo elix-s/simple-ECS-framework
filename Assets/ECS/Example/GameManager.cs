@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         meshRenderer.material.color = Color.red; 
         
         PositionComponent positionComponent = entity.Get<PositionComponent>();
-        
+
         List<object> components = entity.GetComponents();
         
         if (components != null)
