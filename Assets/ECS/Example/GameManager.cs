@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _prefab;
     private Mesh _cubeMesh; 
 
     private void Start()
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
         
         Entity entity_empty = Entity.NewEntity();
         Entity entity = Entity.NewEntityGameObject("Player");
+        Entity entity_prefab = Entity.NewEntityPrefab(_prefab);
         
         MeshFilter meshFilter = entity.GameObject.AddComponent<MeshFilter>();
         meshFilter.mesh = _cubeMesh; 
@@ -43,10 +45,9 @@ public class GameManager : MonoBehaviour
             Debug.Log("No components attached to this entity.");
         }
 
-        entity.GameObject.transform.position = new Vector3(0, 0, 0);
-        
         ecsManager.RegisterEntity(entity_empty);
         ecsManager.RegisterEntity(entity);
+        ecsManager.RegisterEntity(entity_prefab);
     }
 
     private Mesh CreateCubeMesh()

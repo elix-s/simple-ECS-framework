@@ -37,6 +37,17 @@ public class Entity
 
         return entity;
     }
+    
+    public static Entity NewEntityPrefab(GameObject prefab)
+    {
+        Entity entity = new Entity();
+        
+        GameObject gameObject = UnityEngine.Object.Instantiate(prefab);
+        entity._gameObject = gameObject; 
+        gameObject.name = "EntityPrefab_" + prefab.name;
+
+        return entity;
+    }
 
     public T Get<T>() where T : Component, new()
     {
